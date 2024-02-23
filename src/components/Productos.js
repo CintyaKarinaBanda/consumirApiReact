@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { url_ApiProducto, url_Images } from "../config/rutas";
 
 export function Productos(){
     const [productosData, setProductosData]=useState([]);
     useEffect(()=>{
-        axios.get("https://apis-productos-usuarios.onrender.com/productos/api/mostrarProductos")
+        axios.get(url_ApiProducto+"mostrarProductos")
         .then((response)=>{
             setProductosData(response.data);
         }).catch((err)=>{
@@ -14,9 +15,9 @@ export function Productos(){
     },[])
 
     const vistaProductos=productosData.map((product)=>{
-        var editar="/editar/"+product.id;
-        var borrar="/borrar/"+product.id;
-        var foto="https://apis-productos-usuarios.onrender.com/images/"+product.foto;
+        var editar="/editarProducto/"+product.id;
+        var borrar="/borrarProducto/"+product.id;
+        var foto=url_Images+product.foto;
         return(
             <tr key={product.id} className="aling-middle">
                 <td>{product.id}</td>

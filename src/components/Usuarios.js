@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
+import {url_ApiUsuario, url_Images} from "../config/rutas";
 
 export function Usuarios(){
     const [datosUsuarios, setDatosUsuarios] = useState([]);
     useEffect(()=>{
-        axios.get("https://apis-productos-usuarios.onrender.com/api/motrarUsuarios")
+        axios.get(url_ApiUsuario+"motrarUsuarios")
         .then((response)=>{
             setDatosUsuarios(response.data);
         }).catch((err)=>{
@@ -14,15 +15,15 @@ export function Usuarios(){
     },[]);
 
     const vistaUsuarios=datosUsuarios.map((usuario)=>{
-        var editar="/editar/"+usuario.id;
-        var borrar="/borrar/"+usuario.id;
-        var foto="https://apis-productos-usuarios.onrender.com/images/"+usuario.foto;
+        var editar="/editarUsuario/"+usuario.id;
+        var borrar="/borrarUsuario/"+usuario.id;
+        var foto=url_Images+usuario.foto;
         return(
             <tr key={usuario.id} className="aling-middle">
                 <td>{usuario.id}</td>
                 <td>{usuario.nombre}</td>
                 <td>{usuario.usuario}</td>
-                <td>{usuario.password}</td>
+                <td>******</td>
                 <td><img src={foto} alt={usuario.foto} width="100px"></img></td>
                 <td>
                     <Link to={editar}>Editar</Link> / 
